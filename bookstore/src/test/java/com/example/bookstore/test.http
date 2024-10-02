@@ -1,0 +1,27 @@
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "Spring-Rest",
+  "isbn": "123-654-789",
+  "price": 29.99
+}
+
+
+###
+GET http://localhost:8080/books
+Accept: application/v1+json
+
+###
+GET http://localhost:8080/books
+Accept: application/v2+json
+
+###
+GET http://localhost:8080/books
+X-API-VERSION: 1
+
+
+
+###
+GET http://localhost:8080/books?version=1
