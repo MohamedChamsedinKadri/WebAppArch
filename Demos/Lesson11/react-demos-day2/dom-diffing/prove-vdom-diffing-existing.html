@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demonstrating the Existence of React's Virtual DOM Diffing</title>
+    <script type="text/javascript" src="../libraries/react.development.js"></script>
+    <script type="text/javascript" src="../libraries/react-dom.development.js"></script>
+    <script type="text/javascript" src="../libraries/babel.min.js"></script>
+</head>
+<body>
+<div id="container"></div>
+
+<script type="text/babel">
+    class Clock extends React.Component {
+
+        state = {time: new Date()}
+
+        componentDidMount(){
+            setInterval(() => {
+                this.setState({time: new Date()});
+            }, 1000);
+        }
+
+        render(){
+           return (
+                <div>
+                    <h1>Welcome to DOM Diffing</h1>
+                    <input type="text" />
+                    <p>Current Time is {this.state.time.toLocaleTimeString()}<input type="text" /></p>
+                </div>
+            );
+        }
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('container'));
+    root.render(<Clock />)
+</script>
+</body>
+</html>

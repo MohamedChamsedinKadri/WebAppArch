@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 1</title>
+    <script type="text/javascript" src="../../libraries/react.development.js"></script>
+    <script type="text/javascript" src="../../libraries/react-dom.development.js"></script>
+    <script type="text/javascript" src="../../libraries/babel.min.js"></script>
+</head>
+<body>
+
+<div id="container"></div>
+<script type="text/babel">
+    class Header extends React.Component {
+        timerId;
+        state = {favoritecolors: ['red', 'yellow', 'pink', 'blue', 'white'], index: 0};
+        unmount = () => {
+            clearInterval(this.timerId);
+            root.unmount();
+        }
+
+        componentDidMount() {
+            this.timerId = setInterval(() => {
+                console.log('interval...');
+                const {index, favoritecolors} = this.state;
+                if(index === favoritecolors.length -1){
+                    this.setState({index:0});
+                } else {
+                    this.setState({index: index+1})
+                }
+            }, 1000);
+        }
+        render() {
+            const {index, favoritecolors} = this.state;
+            return (
+                <div>
+                    <h1>My Favorite Color is {favoritecolors[index]}</h1>
+                    <button onClick={this.unmount}>Unmount</button>
+                </div>
+            );
+        }
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('container'));
+    root.render(<Header/>);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../libraries/react.development.js"></script>
+    <script type="text/javascript" src="../libraries/react-dom.development.js"></script>
+    <script type="text/javascript" src="../libraries/babel.min.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<script type="text/babel">
+    class Timer extends React.Component {
+        state = {now: new Date()}
+
+        componentDidMount() {
+            setInterval(() => {
+                this.setState({now: new Date()});
+            }, 1000);
+        }
+
+        render() {
+           return (
+               <>
+                   <input type="text" />
+                   <h1>Current time is: {this.state.now.toLocaleTimeString()}<input type="text" /></h1>
+               </>
+           )
+       }
+
+
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('container'));
+    root.render(<Timer />);
+</script>
+</body>
+</html>

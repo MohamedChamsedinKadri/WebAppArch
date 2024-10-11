@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../libraries/react.development.js"></script>
+    <script type="text/javascript" src="../libraries/react-dom.development.js"></script>
+    <script type="text/javascript" src="../libraries/babel.min.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<script type="text/babel">
+
+    class Location extends React.Component {
+
+        state = {locations: [
+                {id: 1, city: 'Fairfield', zipCode: 52556},
+                {id: 2, city: 'Ottumwa', zipCode: 62556},
+                {id: 3, city: 'Iowa City', zipCode: 72557}
+            ]}
+
+        add = () => {
+            const {locations} = this.state;
+            this.setState({locations: [{id: locations.length + 1, city: 'Cedar Rapids', zipCode: 82557}, ...locations]})
+        }
+
+        render() {
+            const {locations} = this.state;
+            return (
+                <div>
+                    <ul>
+                        {locations.map((loc, index) => <li key={loc.id}>{loc.id}, {loc.city}, {loc.zipCode} <input type="text"/> </li>)}
+                    </ul>
+                    <button onClick={this.add}>Add a new location</button>
+                </div>
+            );
+        }
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('container'));
+    root.render(<Location />);
+</script>
+</body>
+</html>

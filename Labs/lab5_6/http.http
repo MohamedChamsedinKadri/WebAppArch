@@ -1,0 +1,25 @@
+POST http://localhost:8080/customers
+Content-Type: Application/Json
+
+{
+  "firstName" :  "John",
+  "lastName" : "Wesly",
+  "orders" : [
+    {
+      "date" :  "2020-10-23",
+      "orderLine" :  [
+        {
+          "quantity" : 23,
+          "product" : {
+            "name" : "Agent 006",
+            "description" : "Movie",
+              "title" : "James Bond"
+          }
+        }
+      ]
+    }
+  ]
+}
+
+###
+GET http://localhost:8080/customers

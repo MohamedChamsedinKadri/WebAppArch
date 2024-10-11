@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 1</title>
+    <script type="text/javascript" src="../../libraries/react.development.js"></script>
+    <script type="text/javascript" src="../../libraries/react-dom.development.js"></script>
+    <script type="text/javascript" src="../../libraries/babel.min.js"></script>
+</head>
+<body>
+
+<div id="container"></div>
+<script type="text/babel">
+    function App() {
+        const inputElement = React.useRef();
+
+        const focusInput = () => {
+            inputElement.current.focus();
+        };
+
+        return (
+            <>
+                <input type="text" ref={inputElement} />
+                <button onClick={focusInput}>Focus Input</button>
+            </>
+        );
+    }
+    const root = ReactDOM.createRoot(document.getElementById('container'));
+    root.render(<App />);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lifecycle new methods</title>
+    <script type="text/javascript" src="../libraries/react.development.js"></script>
+    <script type="text/javascript" src="../libraries/react-dom.development.js"></script>
+    <script type="text/javascript" src="../libraries/babel.min.js"></script>
+
+    <style>
+        .list {
+            width: 200px;
+            height: 150px;
+            background-color: skyblue;
+            overflow: auto;
+        }
+
+        .news {
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+<!-- you can use it in a UI like a chat thread that needs to preserve its scroll position during updates -->
+
+    <div id="container"></div>
+    <script type="text/babel">
+        class ScrollingList extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {newsArr: []}
+                this.listRef = React.createRef();
+            }
+
+            componentDidMount(){
+                setInterval(() => {
+                    const {newsArr} = this.state;
+                    const news = 'News ' + (newsArr.length +1);
+                    this.setState({newsArr: [news, ...newsArr]});
+                }, 1000);
+            }
+
+            getSnapshotBeforeUpdate(prevProps, prevState) {
+                return this.listRef.current.scrollHeight;
+            }
+
+            componentDidUpdate(prevProps, prevState, height) {
+               this.listRef.current.scrollTop += this.listRef.current.scrollHeight - height;
+            }
+
+            render() {
+                return (
+                    <div className="list" ref={this.listRef}>
+                        {
+                            this.state.newsArr.map((n, index) => {
+                                return <div className="news" key={'n' + index}>{n}</div>
+                            })
+                        }
+                    </div>
+                );
+            }
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('container'));
+        root.render(<ScrollingList />);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../libraries/react.development.js"></script>
+    <script type="text/javascript" src="../libraries/react-dom.development.js"></script>
+    <script type="text/javascript" src="../libraries/babel.min.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<script type="text/babel">
+
+    class MyComponent extends React.Component{
+
+        state = {opacity: 1}
+        unmountMyCom = () => {
+            console.log('inside unmountMyCom');
+            root.unmount();
+        }
+        constructor(props) {
+            console.log('MyComponent --- constructor');
+            super(props);
+        }
+
+        componentDidMount() {
+            console.log('MyComponent --- componentDidMount');
+        }
+
+        componentDidUpdate(prevProps, prevState, snapshot) {
+            console.log('MyComponent --- componentDidUpdate', prevProps, prevState, snapshot);
+        }
+
+        /* rare used ones*/
+        shouldComponentUpdate(nextProps, nextState, nextContext) {
+            console.log('MyComponent --- shouldComponentUpdate');
+            return true;
+        }
+
+        static getDerivedStateFromProps(props, state){
+            console.log('MyComponent --- getDerivedStateFromProps', props, state);
+            const opacity1 = state.opacity;
+
+            return {opacity: opacity1 - props.step};
+            // return state;
+        }
+
+        render() {
+            console.log('render.......');
+            const {opacity} = this.state;
+
+            return (
+                <div>
+                    <h1 style={{opacity}}>Time flies fast~~~~~~~</h1>
+                    <button onClick={() => this.setState({opacity: opacity - 0.1})}>Click Me</button>
+                    <button onClick={this.unmountMyCom}>Kill Me</button>
+                </div>
+            );
+        }
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('container'));
+    root.render(<MyComponent username="John" step={0.3}/>);
+</script>
+</body>
+</html>

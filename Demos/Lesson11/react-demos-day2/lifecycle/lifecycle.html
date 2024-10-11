@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class Component - Lifecycle</title>
+    <script type="text/javascript" src="../libraries/react.development.js"></script>
+    <script type="text/javascript" src="../libraries/react-dom.development.js"></script>
+    <script type="text/javascript" src="../libraries/babel.min.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<script type="text/babel">
+    class Count extends React.Component {
+        state = {counter: 0};
+
+        increase = () => {
+            const {counter} = this.state;
+            this.setState({counter: counter + 1});
+        }
+
+        unmount = () => {
+            root.unmount();
+        }
+
+        constructor(props) {
+            super(props);
+            console.log('count --- constructor');
+        }
+
+        componentDidMount() {
+            console.log('count --- componentDidMount');
+        }
+
+        shouldComponentUpdate(nextProps, nextState) {
+            return true;
+        }
+
+        componentDidUpdate(prevProps, prevState) {
+            console.log('count --- componentDidUpdate');
+        }
+
+        componentWillUnmount() {
+            console.log('count --- componentWillUnmount');
+        }
+
+        static getDerivedStateFromProps(props, state) {
+            console.log('count --- getDerivedStateFromProps', props, state);
+            return {counter: state.counter + props.increStep};
+        }
+
+
+        render() {
+            console.log('count --- render');
+            return (
+                <div>
+                    <h1>Current Number: {this.state.counter}</h1>
+                    <button onClick={this.increase}>Increase</button>
+                    <button onClick={this.unmount}>Unmount</button>
+                </div>
+            );
+        }
+
+    }
+
+
+    const root = ReactDOM.createRoot(document.getElementById('container'));
+    root.render(<Count username="Tina" increStep={2}/>);
+</script>
+</body>
+</html>

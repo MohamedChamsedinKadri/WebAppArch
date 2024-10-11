@@ -1,0 +1,33 @@
+import "../App.css"
+import React, {Component} from "react";
+import "./Colors"
+
+class Counter extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            count: 0
+        }
+    }
+
+    increaseCounter = () => {
+        this.setState({count: this.state.count++})
+    }
+    decreaseCounter = () => {
+        if (this.state.count > 0)
+            this.setState({count: this.state.count--})
+    }
+
+    render() {
+        return (
+            <div className={"App"}>
+                <h2> Counter {this.state.count}</h2>
+                <button onClick={this.decreaseCounter}>-1</button>
+                <button onClick={this.increaseCounter}>+1</button>
+            </div>
+        );
+    }
+}
+
+export default Counter;

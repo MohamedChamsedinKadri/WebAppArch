@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Key in Virutal DOM</title>
+    <script type="text/javascript" src="../libraries/react.development.js"></script>
+    <script type="text/javascript" src="../libraries/react-dom.development.js"></script>
+    <script type="text/javascript" src="../libraries/babel.min.js"></script>
+</head>
+<body>
+<div id="container"></div>
+
+<script type="text/babel">
+
+    class Person extends React.Component {
+
+        state = {
+            persons: [
+                {id: 1, name: 'John', age: 18},
+                {id: 2, name: 'Edward', age: 19}
+            ]
+        };
+
+        add = () => {
+            const {persons} = this.state;
+            const id = persons.length + 1;
+            const newP = { id, name: 'JJ', age: 20 };
+            this.setState({persons: [newP, ...persons]})
+        }
+
+        render() {
+            return (
+                <div>
+                    <ul>
+                        {
+                            this.state.persons.map(p => <li key={p.id}>{p.name}, {p.age} <input type="text" /></li>)
+                        }
+                    </ul>
+                    <button onClick={this.add}>Add a new Person</button>
+                </div>
+
+            );
+        }
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('container'));
+    root.render(<Person/>)
+</script>
+
+</body>
+</html>

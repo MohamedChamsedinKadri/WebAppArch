@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lifecycle Intro</title>
+    <script type="text/javascript" src="../libraries/react.development.js"></script>
+    <script type="text/javascript" src="../libraries/react-dom.development.js"></script>
+    <script type="text/javascript" src="../libraries/babel.min.js"></script>
+</head>
+<body>
+
+<div id="container"></div>
+<script type="text/babel">
+
+    class MyComponent extends React.Component {
+
+        state = {opacity: 1};
+
+        componentDidMount() {
+            console.log('componentDidMount...');
+            const timer = setInterval(()=> {
+                const {opacity} = this.state;
+                if(opacity <= 0.1){
+                    this.setState({opacity: 1});
+                } else {
+                    this.setState({opacity: opacity-0.1});
+                }
+            }, 200);
+            this.setState({timerId: timer});
+        }
+
+        render() {
+            console.log('render...');
+            return (
+                <div>
+                    <h1 style={this.state}>Time flies fast!</h1>
+                    <button onClick={() => clearInterval(this.state.timerId)}>Stop</button>
+                </div>
+            );
+        }
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('container'));
+    root.render(<MyComponent/>);
+</script>
+
+</body>
+</html>
