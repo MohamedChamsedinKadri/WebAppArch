@@ -1,0 +1,16 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "name": "reactProject"
+    },
+    {
+      "id": 2,
+      "name": "copyApp"
+    },
+    {
+      "id": 3,
+      "name": "pasteApp"
+    }
+  ]
+}
